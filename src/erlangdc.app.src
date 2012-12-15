@@ -12,7 +12,7 @@
                  ,ranch
                  ,cowboy
                  ,jsx
-                 ,epgsql_connpool	
+                 ,epgsql_connpool
                  ]},
   {env, []}
  ]}.

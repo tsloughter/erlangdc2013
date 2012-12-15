@@ -14,11 +14,13 @@ handle(Req, State) ->
         {<<"Basic ", Key/binary>> , Req2} = cowboy_req:header(<<"authorization">>, Req),
         {DecodedKey, _} = decoded_credentials(Key),
         User = erlangdc_user:get_user(DecodedKey),
+        lager:info("at=handle user=~p", [User]),
         {ok, Req3} = cowboy_req:reply(200, [], User, Req2),
         {ok, Req3, State}
     catch
         T:E ->
-            lager:info("at=handle type=~p exception=~p ~p~n", [T, E, erlang:get_stacktrace()]),
+            io:format("at=handle type=~p exception=~p ~p", [T, E, erlang:get_stacktrace()]),
+            lager:info("at=handle type=~p exception=~p ~p", [T, E, erlang:get_stacktrace()]),
             {ok, Req4} = cowboy_req:reply(401, Req),
             {ok, Req4, State}
     end.
