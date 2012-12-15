@@ -1,0 +1,18 @@
+%% -*- erlang -*-
+{application, erlangdc,
+ [{description, "ErlangDC 2013 Example"},
+  {vsn, "0.1.0"},
+  {registered, [erlangdc_sup]},
+  {mod, {erlangdc_app, []}},
+  {start_phases, []},
+  {applications, [
+                 kernel
+                 ,stdlib
+                 ,sasl
+                 ,ranch
+                 ,cowboy
+                 ,jsx
+                 ,epgsql_connpool	
+                 ]},
+  {env, []}
+ ]}.

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+erl +K true +A30 -pa ebin -env ERL_LIBS deps -noshell -noinput -s erlangdc_app -erlangdc http_listen_port $PORT
