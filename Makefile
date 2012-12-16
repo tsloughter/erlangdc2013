@@ -13,6 +13,9 @@ ERLANGDC_PLT=$(CURDIR)/.depsolver_plt
 compile:
 	@./rebar get-deps compile
 
+rel: compile
+	@./relcool
+
 $(ERLANGDC_PLT):
 	dialyzer --output_plt $(ERLANGDC_PLT) --build_plt \
 		--apps erts kernel stdlib crypto public_key -r deps --fullpath

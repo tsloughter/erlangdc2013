@@ -38,7 +38,7 @@ init([]) ->
 
 
     Dispatch = [{'_', [{[<<"authenticate">>], erlangdc_handler, []}]}],
-    {ok, ListenPort} = application:get_env(erlangdc, http_listen_port),
+    ListenPort = list_to_integer(os:getenv("PORT")),
 
     ChildSpecs = [ranch:child_spec(erlangdc_cowboy, 100,
                                    ranch_tcp, [{port, ListenPort}],
