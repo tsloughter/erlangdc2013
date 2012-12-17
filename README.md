@@ -18,7 +18,7 @@
 ```shell
 λ heroku addons:add heroku-postgresql:dev
 
-λ heroku pg:psql HEROKU_POSTGRESQL_BRONZE_URL
+λ heroku pg:psql DATABASE_URL
 => create table users (
        id text not null,                                                        
        apikey text not null,
