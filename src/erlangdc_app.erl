@@ -21,7 +21,6 @@ start() ->
     application:set_env(lager, handlers, {handlers, [
                                                     {lager_console_backend, [info]}
                                                     ]}),
-    start_db(),
     start_deps(erlangdc, permanent).
 
 start_deps(App, Type) ->
@@ -33,7 +32,8 @@ start_deps(App, Type) ->
             start_deps(App, Type)
     end.
 
-start(_StartType, _StartArgs) ->    
+start(_StartType, _StartArgs) ->
+    start_db(),
     erlangdc_sup:start_link().
 
 %%--------------------------------------------------------------------
@@ -48,22 +48,19 @@ start_db() ->
     Url = os:getenv("HEROKU_POSTGRESQL_CHARCOAL_URL"),
     {ok, {_Scheme, UserInfo, Host, Port, "/"++DBName, _Query}} = http_uri_r15b:parse(Url),
     [Username, Password] = string:tokens(UserInfo, ":"),
-    
-    application:start(epgsql),
-    application:set_env(epgsql_connpool, pools, 
-                       [ {db, 
-                         [
-                         {host,      Host},
-                         {port,      Port},
-                         {username,  Username}, 
-                         {password,  Password}, 
-                         {size,      10}, 
-                         {opts, [
-                                {timeout,  5000},
-                                {database, DBName}
-                                ]}
-                         ]
-                         }
-                       ]
-                       ),
-    application:start(epgsql_connpool).
+
+    epgsql_connpool_config:add_pool(db, 
+                                   [
+                                   {host,      Host},
+                                   {port,      Port},
+                                   {username,  Username}, 
+                                   {password,  Password}, 
+                                   {size,      10}, 
+                                   {opts, [
+                                          {timeout,  5000},
+                                          {database, DBName}
+                                          ]}
+                                   ]
+                                   ),
+
+    epgsql_connpool_app:add_child(db).

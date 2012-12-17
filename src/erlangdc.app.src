@@ -9,10 +9,13 @@
                  kernel
                  ,stdlib
                  ,sasl
+                 ,inets
                  ,ranch
                  ,cowboy
                  ,jsx
+                 ,iso8601
                  ,epgsql_connpool
+                 ,lager
                  ]},
   {env, []}
  ]}.

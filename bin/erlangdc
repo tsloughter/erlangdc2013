@@ -4,4 +4,4 @@ if [ -z $PORT ]; then
     PORT=8080
 fi
 
-erl +K true +A30 -pa ebin -env ERL_LIBS deps -s erlangdc_app -erlangdc http_listen_port $PORT
+erl +K true +A5 -pa ebin -env ERL_LIBS deps -s erlangdc_app
