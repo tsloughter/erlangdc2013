@@ -1,1 +1,1 @@
-web: bin/erlangdc
+web: ./_rel/bin/erlangdc +K true
