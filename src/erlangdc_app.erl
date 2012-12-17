@@ -45,7 +45,7 @@ stop(_State) ->
 %%%===================================================================
 
 start_db() ->
-    Url = os:getenv("HEROKU_POSTGRESQL_CHARCOAL_URL"),
+    Url = os:getenv("HEROKU_POSTGRESQL_BRONZE_URL"),
     {ok, {_Scheme, UserInfo, Host, Port, "/"++DBName, _Query}} = http_uri_r15b:parse(Url),
     [Username, Password] = string:tokens(UserInfo, ":"),
 
