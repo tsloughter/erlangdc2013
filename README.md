@@ -10,7 +10,6 @@ performance test scripts here https://github.com/patrick-higgins/go-and-java/blo
 ```
 λ sudo -u postgres createdb erlangdc
 λ psql erlangdc
-λ heroku pg:psql DATABASE_URL
 => create table users (
        id text not null,                                                        
        apikey text not null,
