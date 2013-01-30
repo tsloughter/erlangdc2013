@@ -29,7 +29,7 @@ performance test scripts here https://github.com/patrick-higgins/go-and-java/blo
 
 ```shell
 λ make rel
-λ ./_rel/bin/erlangdc
+λ PORT=8080 DATABASE_URL=postgres://<username>:<password>@localhost:5432/erlangdc ./_rel/bin/erlangdc
 ```
 
 ## Heroku Setup
