@@ -2,7 +2,7 @@
 
 -export([init/3, 
          handle/2, 
-         terminate/2]).
+         terminate/3]).
 
 -record(state, {}).
 
@@ -23,7 +23,7 @@ handle(Req, State) ->
             {ok, Req4, State}
     end.
 
-terminate(_Req, _State) ->
+terminate(_Reason, _Req, _State) ->
     ok.
 
 %%

@@ -36,13 +36,16 @@ init([]) ->
 
     SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
 
+    Dispatch = cowboy_router:compile([
+                                     %% {HostMatch, list({PathMatch, Handler, Opts})}
+                                     {'_', [{"/authenticate", erlangdc_handler, []}]}
+                                     ]),
 
-    Dispatch = [{'_', [{[<<"authenticate">>], erlangdc_handler, []}]}],
     ListenPort = list_to_integer(os:getenv("PORT")),
 
     ChildSpecs = [ranch:child_spec(erlangdc_cowboy, 100,
                                    ranch_tcp, [{port, ListenPort}],
-                                   cowboy_protocol, [{dispatch, Dispatch}])],
+                                   cowboy_protocol, [{env, [{dispatch, Dispatch}]}])],
 
     {ok, {SupFlags, ChildSpecs}}.
 
