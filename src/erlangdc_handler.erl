@@ -11,9 +11,8 @@ init({tcp, http}, Req, []) ->
 
 handle(Req, State) ->
     try
-        {<<"Basic ", Key/binary>> , Req2} = cowboy_req:header(<<"authorization">>, Req),
-        {DecodedKey, _} = decoded_credentials(Key),
-        User = erlangdc_user:get_user(DecodedKey),
+        {ok, {<<"basic">>, {Key, _Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
+        User = erlangdc_user:get_user(Key),
         {ok, Req3} = cowboy_req:reply(200, [], User, Req2),
         {ok, Req3, State}
     catch
@@ -29,13 +28,3 @@ terminate(_Reason, _Req, _State) ->
 %%
 %% Internal functions
 %%
-
-decoded_credentials(EncodedCredentials) ->    
-    DecodedCredentials = base64:decode(EncodedCredentials),
-    case binary:split(DecodedCredentials, <<$:>>) of
-        [Username, Password] ->
-            {Username, Password};
-        _ ->
-            {undefined, undefined}
-    end.
-

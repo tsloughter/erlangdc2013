@@ -35,7 +35,7 @@ performance test scripts here https://github.com/patrick-higgins/go-and-java/blo
 ### Send Request
 
 ```shell
-λ curl -H "authorization: Basic YXBpa2V5X3ZhbHVlOnBhc3N3b3JkX2hhc2hfdmFsdWUK" localhost:8080/authenticate 
+λ curl -H "authorization: Basic YXBpa2V5X3ZhbHVlOnBhc3N3b3JkX2hhc2hfdmFsdWU=" localhost:8080/authenticate 
 {"id":"1","email":"john@email.com","created_at":"2012-12-15T16:19:45.618303Z","updated_at":"2012-12-15T16:19:45.618303Z","name":"John","admin":false,"active":true}
 ```
 
