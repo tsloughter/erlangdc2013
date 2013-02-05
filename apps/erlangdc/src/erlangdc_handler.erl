@@ -11,6 +11,7 @@ init({tcp, http}, Req, []) ->
 
 handle(Req, State) ->
     try
+        estatsd:increment("erlangdc_handler.requests"),
         {ok, {<<"basic">>, {Key, _Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
         User = erlangdc_user:get_user(Key),
         {ok, Req3} = cowboy_req:reply(200, [], User, Req2),
