@@ -34,6 +34,9 @@ start_deps(App, Type) ->
 
 start(_StartType, _StartArgs) ->
     start_db(),
+    LibratoUser = os:getenv("LIBRATO_USER"),
+    LibratoToken = os:getenv("LIBRATO_TOKEN"),
+    gen_event:add_handler(estatsda_manager, estatsda_adapter, {estatsda_librato, {LibratoUser, LibratoToken}}),
     erlangdc_sup:start_link().
 
 %%--------------------------------------------------------------------

@@ -1,0 +1,27 @@
+{application, estatsd, [
+  % A short description
+  {description,
+    "Stats aggregation service writing to a graphing system of your choice"},
+
+  % Pull the version number from git
+  {vsn, "0.1.0"},
+
+  % All names of registered processes in the application. systools uses this
+  % list to detect name clashes between applications.
+  {registered, []},
+
+  % All applications which must be started before this application is started.
+  % systools uses this list to generate correct boot scripts.
+  {applications, [
+    kernel,
+    stdlib,
+    sasl,
+    ssl,
+    ibrowse
+  ]},
+
+  % The application master starts the application by calling the application
+  % callback function start/2 in the module, and with the start argument,
+  % defined here:
+  {mod, {estatsd_app, []}}
+ ]}.

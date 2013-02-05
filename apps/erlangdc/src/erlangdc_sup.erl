@@ -38,7 +38,7 @@ init([]) ->
 
     Dispatch = cowboy_router:compile([
                                      %% {HostMatch, list({PathMatch, Handler, Opts})}
-                                     {'_', [{"/authenticate", erlangdc_handler, []}]}
+                                     {'_', [{"/user", erlangdc_handler, []}]}
                                      ]),
 
     ListenPort = list_to_integer(os:getenv("PORT")),
