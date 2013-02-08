@@ -34,8 +34,10 @@ performance test scripts here https://github.com/patrick-higgins/go-and-java/blo
 
 ### Send Request
 
+base64 encode the name:apikey value.
+
 ```shell
-λ curl -H "authorization: Basic YXBpa2V5X3ZhbHVlOnBhc3N3b3JkX2hhc2hfdmFsdWU=" localhost:8080/user
+λ curl -H "authorization: Basic Sm9objphcGlrZXlfdmFsdWU=" localhost:8080/user
 {"id":"1","email":"john@email.com","created_at":"2012-12-15T16:19:45.618303Z","updated_at":"2012-12-15T16:19:45.618303Z","name":"John","admin":false,"active":true}
 ```
 

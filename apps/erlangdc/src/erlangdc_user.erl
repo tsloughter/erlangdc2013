@@ -14,7 +14,7 @@
 get_user(UserName, ApiKey) ->
     {dirty,{ok, Columns, [User]}} =
         epgsql_connpool:dirty(db, fun(_Db) ->
-                                          Sql = "select id, email, created_at, updated_at, name, admin, active from users where name=$1, apikey = $2",
+                                          Sql = "select id, email, created_at, updated_at, name, admin, active from users where name = $1 and apikey = $2",
                                           epgsql_query:equery(Sql, [UserName, ApiKey])
                                   end),
     to_json(Columns, User).
