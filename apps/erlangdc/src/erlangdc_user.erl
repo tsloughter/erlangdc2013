@@ -9,7 +9,8 @@
 -module(erlangdc_user).
 
 %% API
--export([get_user/2]).
+-export([add_user/1
+        ,get_user/2]).
 
 get_user(UserName, ApiKey) ->
     {dirty,{ok, Columns, [User]}} =
@@ -18,6 +19,12 @@ get_user(UserName, ApiKey) ->
                                           epgsql_query:equery(Sql, [UserName, ApiKey])
                                   end),
     to_json(Columns, User).
+
+add_user(User) ->
+    epgsql_connpool:dirty(db, fun(_Db) ->
+                                      Sql = "insert into users (id, apikey, name, email, password_hash) values ('$1', '$2', '$3', '$4', '$5');",
+                                      epgsql_query:equery(Sql, [User])
+                              end).
 
 %%%===================================================================
 %%% Internal functions

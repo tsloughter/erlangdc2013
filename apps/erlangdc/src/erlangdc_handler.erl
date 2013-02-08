@@ -18,8 +18,12 @@ content_types_provided(Req, State) ->
     {[{{<<"application">>, <<"json">>, []}, get_json}], Req, State}.
 
 process_post(Req, State) ->
-    %%
-    {true, Req, State}.
+    {UserValues, Req2} = cowboy_req:body_qs(Req),
+    lager:info("at=process_post user=~p", [UserValues]),
+
+    %% 
+    
+    {true, Req2, State}.
 
 delete_resource(Req, State) ->
     %%
