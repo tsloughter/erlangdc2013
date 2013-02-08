@@ -18,7 +18,7 @@ content_types_provided(Req, State) ->
     {[{{<<"application">>, <<"json">>, []}, get_json}], Req, State}.
 
 process_post(Req, State) ->
-    {UserValues, Req2} = cowboy_req:body_qs(Req),
+    {ok, UserValues, Req2} = cowboy_req:body_qs(Req),
     lager:info("at=process_post user=~p", [UserValues]),
 
     %% 
@@ -30,7 +30,7 @@ delete_resource(Req, State) ->
     {true, Req, State}.
 
 get_json(Req, State) ->
-        try
+    try
         estatsd:increment("erlangdc_handler.requests"),
         {ok, {<<"basic">>, {Key, Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
         User = erlangdc_user:get_user(Key, Value),
