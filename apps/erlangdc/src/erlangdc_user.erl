@@ -9,13 +9,13 @@
 -module(erlangdc_user).
 
 %% API
--export([get_user/1]).
+-export([get_user/2]).
 
-get_user(ApiKey) ->
+get_user(UserName, ApiKey) ->
     {dirty,{ok, Columns, [User]}} =
         epgsql_connpool:dirty(db, fun(_Db) ->
-                                          Sql = "select id, email, created_at, updated_at, name, admin, active from users where apikey = $1",
-                                          epgsql_query:equery(Sql, [ApiKey])
+                                          Sql = "select id, email, created_at, updated_at, name, admin, active from users where name=$1, apikey = $2",
+                                          epgsql_query:equery(Sql, [UserName, ApiKey])
                                   end),
     to_json(Columns, User).
 

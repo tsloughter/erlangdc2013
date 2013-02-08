@@ -28,8 +28,8 @@ delete_resource(Req, State) ->
 get_json(Req, State) ->
         try
         estatsd:increment("erlangdc_handler.requests"),
-        {ok, {<<"basic">>, {Key, _Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
-        User = erlangdc_user:get_user(Key),
+        {ok, {<<"basic">>, {Key, Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
+        User = erlangdc_user:get_user(Key, Value),
         {User, Req2, State}
     catch
         T:E ->
