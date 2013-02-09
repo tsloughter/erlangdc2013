@@ -32,13 +32,14 @@ delete_resource(Req, State) ->
 get_json(Req, State) ->
     try
         estatsd:increment("erlangdc_handler.requests"),
-        {{<<"basic">>, {Key, Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
+        {ok, {<<"basic">>, {Key, Value}}, Req2} = cowboy_req:parse_header(<<"authorization">>, Req),
         User = erlangdc_user:get_user(Key, Value),
         {User, Req2, State}
     catch
         T:E ->
             lager:info("at=handle type=~p exception=~p ~p", [T, E, erlang:get_stacktrace()]),
-            {401, Req, State}
+            {ok, Req3} = cowboy_req:reply(401, Req),
+            {halt, Req3, State}
     end.
 
 terminate(_Reason, _Req, _State) ->
